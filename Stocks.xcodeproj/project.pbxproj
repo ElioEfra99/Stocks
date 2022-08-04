@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F24CBDA289B5F5800946F3F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F24CBD9289B5F5800946F3F /* Extensions.swift */; };
 		4F4077A52898B1560075BF29 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4077A42898B1560075BF29 /* APICaller.swift */; };
 		4F4077A72898B1620075BF29 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4077A62898B1620075BF29 /* HapticsManager.swift */; };
 		4F4077A92898B16B0075BF29 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4077A82898B16B0075BF29 /* PersistenceManager.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F24CBD9289B5F5800946F3F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4F4077A42898B1560075BF29 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		4F4077A62898B1620075BF29 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4F4077A82898B16B0075BF29 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				7A0FCD042895EB86000EA5B3 /* Assets.xcassets */,
 				7A0FCCFB2895EB85000EA5B3 /* AppDelegate.swift */,
 				7A0FCCFD2895EB85000EA5B3 /* SceneDelegate.swift */,
+				4F24CBD9289B5F5800946F3F /* Extensions.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				7A0FCD162895EDAB000EA5B3 /* TopStoriesNewsViewController.swift in Sources */,
 				4F4077A52898B1560075BF29 /* APICaller.swift in Sources */,
 				7A0FCCFC2895EB85000EA5B3 /* AppDelegate.swift in Sources */,
+				4F24CBDA289B5F5800946F3F /* Extensions.swift in Sources */,
 				7A0FCCFE2895EB85000EA5B3 /* SceneDelegate.swift in Sources */,
 				4F4077A92898B16B0075BF29 /* PersistenceManager.swift in Sources */,
 				4F4077A72898B1620075BF29 /* HapticsManager.swift in Sources */,
