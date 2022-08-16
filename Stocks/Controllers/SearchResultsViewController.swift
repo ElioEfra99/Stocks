@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
-    func searchResultsViewControllerDidSelect(searchResult: String)
+    func searchResultsViewControllerDidSelect(searchResult: SearchResult)
 }
 
 class SearchResultsViewController: UIViewController {
@@ -16,7 +16,7 @@ class SearchResultsViewController: UIViewController {
     // MARK: - Properties
     
     weak var delegate: SearchResultsViewControllerDelegate?
-    private var results = [String]()
+    private var results = [SearchResult]()
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -40,7 +40,8 @@ class SearchResultsViewController: UIViewController {
     
     // MARK: - Public methods
     
-    public func update(with data: [String]) {
+    public func update(with data: [SearchResult]) {
+        results = data
         tableView.reloadData()
     }
     
@@ -55,20 +56,22 @@ class SearchResultsViewController: UIViewController {
 
 extension SearchResultsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsTableViewCell.identifier,
                                                  for: indexPath)
+        let result = results[indexPath.row]
+        
         if #available(iOS 14.0, *) {
             var content = UIListContentConfiguration.cell()
-            content.text = "AAPL"
-            content.secondaryText = "Apple Inc."
+            content.text = result.displaySymbol
+            content.secondaryText = result.description
             cell.contentConfiguration = content
         } else {
-            cell.textLabel?.text = "AAPL"
-            cell.detailTextLabel?.text = "Apple Inc."
+            cell.textLabel?.text = result.displaySymbol
+            cell.detailTextLabel?.text = result.description
         }
         
         return cell
@@ -77,7 +80,8 @@ extension SearchResultsViewController: UITableViewDataSource {
 
 extension SearchResultsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let result = results[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.searchResultsViewControllerDidSelect(searchResult: "AAPL")
+        delegate?.searchResultsViewControllerDidSelect(searchResult: result)
     }
 }

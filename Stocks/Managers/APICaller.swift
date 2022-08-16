@@ -11,9 +11,21 @@ final public class APICaller {
     static let shared = APICaller()
     
     private struct Constants {
-        static let apiKey = ""
-        static let sandboxApiKey = ""
-        static let baseURL = ""
+        static var apiKey: String {
+            if let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String {
+                return apiKey
+            }
+            return ""
+        }
+        
+        static var sandboxApiKey: String {
+            if let sandboxApiKey = Bundle.main.infoDictionary?["SANDBOX_API_KEY"] as? String {
+                return sandboxApiKey
+            }
+            return ""
+        }
+        
+        static let baseURL = "https://finnhub.io/api/v1/"
     }
     
     private init() { }
@@ -24,6 +36,16 @@ final public class APICaller {
     // get stock info
     
     // search stocks
+    public func search(
+        query: String,
+        completion: @escaping (Result<SearchResponse, Error>) -> Void
+    ) {
+        request(
+            url: url(for: .search, queryParam: ["q" : query]),
+            expecting: SearchResponse.self,
+            completion: completion
+        )
+    }
     
     // MARK: - Private
     
@@ -40,7 +62,27 @@ final public class APICaller {
         for endpoint: Endpoint,
         queryParam: [String: String] = [:]
     ) -> URL? {
-        return nil
+        var baseURL = Constants.baseURL + endpoint.rawValue
+        
+        var queryItems: [URLQueryItem] = []
+        
+        // Append query parameters
+        for (name, value) in queryParam {
+            queryItems.append(.init(name: name, value: value))
+        }
+        
+        // Append token
+        queryItems.append(.init(name: "token", value: Constants.apiKey))
+        
+        let queryString = queryItems.map { queryItem in
+            "\(queryItem.name)=\(queryItem.value ?? "")"
+        }.joined(separator: "&")
+        
+        baseURL += "?" + queryString
+        
+        print(baseURL)
+        
+        return URL(string: baseURL)
     }
     
     private func request<T: Codable>(
