@@ -20,6 +20,8 @@ class SearchResultsViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView()
+        table.isHidden = true
+        table.backgroundColor = .systemGreen
         table.register(SearchResultsTableViewCell.self,
                        forCellReuseIdentifier: SearchResultsTableViewCell.identifier)
         return table
@@ -42,6 +44,7 @@ class SearchResultsViewController: UIViewController {
     
     public func update(with data: [SearchResult]) {
         results = data
+        tableView.isHidden = results.isEmpty
         tableView.reloadData()
     }
     
