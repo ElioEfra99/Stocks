@@ -5,4 +5,12 @@
 //  Created by Efrain Diaz on 30/07/22.
 //
 
-import Foundation
+import UIKit
+
+class StockDetailsViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+    }
+}
