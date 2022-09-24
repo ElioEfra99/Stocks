@@ -5,4 +5,13 @@
 //  Created by Efrain Diaz on 30/07/22.
 //
 
-import Foundation
+import UIKit
+
+class TopStoriesNewsViewController: UIViewController {
+    
+    let tableView = UITableView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}

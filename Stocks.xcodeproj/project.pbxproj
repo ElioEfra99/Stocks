@@ -13,6 +13,7 @@
 		4F4077A92898B16B0075BF29 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4077A82898B16B0075BF29 /* PersistenceManager.swift */; };
 		4F7B4BC728AB294100423A42 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7B4BC628AB294100423A42 /* SearchResponse.swift */; };
 		4FF99148289EF8550061D1F5 /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF99147289EF8550061D1F5 /* SearchResultsTableViewCell.swift */; };
+		4FF9F06F28DE9EBC002C29C0 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 4FF9F06E28DE9EBC002C29C0 /* FloatingPanel */; };
 		7A0FCCFC2895EB85000EA5B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FCCFB2895EB85000EA5B3 /* AppDelegate.swift */; };
 		7A0FCCFE2895EB85000EA5B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FCCFD2895EB85000EA5B3 /* SceneDelegate.swift */; };
 		7A0FCD002895EB85000EA5B3 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FCCFF2895EB85000EA5B3 /* WatchListViewController.swift */; };
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF9F06F28DE9EBC002C29C0 /* FloatingPanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,9 @@
 			dependencies = (
 			);
 			name = Stocks;
+			packageProductDependencies = (
+				4FF9F06E28DE9EBC002C29C0 /* FloatingPanel */,
+			);
 			productName = Stocks;
 			productReference = 7A0FCCF82895EB85000EA5B3 /* Stocks.app */;
 			productType = "com.apple.product-type.application";
@@ -177,6 +182,9 @@
 				Base,
 			);
 			mainGroup = 7A0FCCEF2895EB85000EA5B3;
+			packageReferences = (
+				4FF9F06D28DE9EBC002C29C0 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+			);
 			productRefGroup = 7A0FCCF92895EB85000EA5B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -428,6 +436,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4FF9F06D28DE9EBC002C29C0 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scenee/FloatingPanel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4FF9F06E28DE9EBC002C29C0 /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FF9F06D28DE9EBC002C29C0 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7A0FCCF02895EB85000EA5B3 /* Project object */;
 }
