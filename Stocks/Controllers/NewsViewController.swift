@@ -7,18 +7,8 @@
 
 import UIKit
 
-class NewsViewController: UIViewController {
-    
-    let tableView: UITableView = {
-        let table = UITableView()
-        table.backgroundColor = .clear
-        
-        return table
-    }()
-    
-    private let type: Type
-    
-    enum `Type` {
+public class NewsViewController: UIViewController {
+    public enum `Type` {
         case topStories
         case company(symbol: String)
         
@@ -32,15 +22,30 @@ class NewsViewController: UIViewController {
         }
     }
     
+    // MARK: - Properties
+    
+    private let type: Type
+    
+    private let stories = [String]()
+    
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = .clear
+        table.register(NewsHeaderView.self,
+                       forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+        
+        return table
+    }()
+    
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
         fetchNews()
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
@@ -72,31 +77,42 @@ class NewsViewController: UIViewController {
 }
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        0
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         140
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        70
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        NewsHeaderView.preferredHeight
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        nil
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: NewsHeaderView.identifier
+        ) as? NewsHeaderView else {
+            return nil
+        }
+        
+        header.configure(using: .init(
+            title: type.title,
+            shouldShowAddButton: false
+        ))
+        
+        return header
     }
 }
