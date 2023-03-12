@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 public class NewsViewController: UIViewController {
     public enum `Type` {
@@ -83,11 +84,28 @@ public class NewsViewController: UIViewController {
     }
     
     private func open(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    
+    private func presentFailedToOpenAlert() {
+        let alertController = UIAlertController(
+            title: "Unable to Open",
+            message: "We were unable to open the article.",
+            preferredStyle: .alert
+        )
         
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel)
+        
+        alertController.addAction(dismissAction)
+        
+        present(alertController, animated: true)
     }
 }
 
-extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableViewDataSource
+
+extension NewsViewController: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
@@ -108,11 +126,11 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         stories.count
     }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+}
+
+// MARK: - UITableViewDelegate Methods
+
+extension NewsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         NewsStoryTableViewCell.preferredHeight
     }
@@ -134,5 +152,17 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         ))
         
         return header
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let story = stories[indexPath.row]
+        guard let storyUrl = URL(string: story.url) else {
+            presentFailedToOpenAlert()
+            return
+        }
+        
+        open(url: storyUrl)
     }
 }
