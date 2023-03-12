@@ -26,18 +26,7 @@ public class NewsViewController: UIViewController {
     
     private let type: Type
     
-    private let stories: [NewsStory] = [
-        NewsStory(
-            category: "tech",
-            datetime: 123,
-            headline: "Some headline should go here!",
-            image: "",
-            related: "Related",
-            source: "CNBC",
-            summary: "",
-            url: ""
-        )
-    ]
+    private var stories: [NewsStory] = []
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -81,7 +70,16 @@ public class NewsViewController: UIViewController {
     }
     
     private func fetchNews() {
-        
+        Task {
+            let result = await APICaller.shared.news(for: type)
+            switch result {
+            case .success(let stories):
+                self.stories = stories
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func open(url: URL) {
