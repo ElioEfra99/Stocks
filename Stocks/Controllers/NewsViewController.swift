@@ -26,11 +26,24 @@ public class NewsViewController: UIViewController {
     
     private let type: Type
     
-    private let stories = [String]()
+    private let stories: [NewsStory] = [
+        NewsStory(
+            category: "tech",
+            datetime: 123,
+            headline: "Some headline should go here!",
+            image: "",
+            related: "Related",
+            source: "CNBC",
+            summary: "",
+            url: ""
+        )
+    ]
     
     let tableView: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
+        table.register(NewsStoryTableViewCell.self,
+                       forCellReuseIdentifier: NewsStoryTableViewCell.identifier)
         table.register(NewsHeaderView.self,
                        forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
         
@@ -82,11 +95,20 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NewsStoryTableViewCell.identifier,
+            for: indexPath
+        ) as? NewsStoryTableViewCell else {
+            fatalError()
+        }
+        
+        cell.configure(with: .init(model: stories[indexPath.row]))
+        
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        stories.count
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,7 +116,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        140
+        NewsStoryTableViewCell.preferredHeight
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
